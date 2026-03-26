@@ -119,7 +119,7 @@ async function loadFromLocal() {
     
     // Try to load from server
     try {
-        const response = await fetch('http://localhost:3000/api/data');
+        const response = await fetch('/api/data');
         if (response.ok) {
             const data = await response.json();
             if (data.applications && data.applications.length > 0) {
@@ -138,7 +138,7 @@ async function loadFromLocal() {
 
 async function saveToBackend(application) {
     try {
-        await fetch('http://localhost:3000/api/applications', {
+        await fetch('/api/applications', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ application })
@@ -150,7 +150,7 @@ async function saveToBackend(application) {
 
 async function deleteFromBackend(id) {
     try {
-        await fetch(`http://localhost:3000/api/applications/${id}`, {
+        await fetch(`/api/applications/${id}`, {
             method: 'DELETE'
         });
     } catch (e) {
