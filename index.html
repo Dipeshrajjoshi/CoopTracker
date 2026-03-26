@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-op Tracker | Premium Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="auth-overlay active">
+        <div class="auth-card glass-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>Co-op Pro</span>
+                </div>
+                <h1 id="auth-title">Welcome Back</h1>
+                <p id="auth-subtitle">Login to track your applications</p>
+            </div>
+            
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="auth-username">Username</label>
+                    <input type="text" id="auth-username" required placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" id="auth-submit-btn" class="primary-btn full-width">Login</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p id="auth-toggle-text">Don't have an account? <a href="#" id="auth-toggle">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>Co-op Pro</span>
+            </div>
+            <nav>
+                <div class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" data-view="applications">
+                    <i class="fas fa-list"></i>
+                    <span>Applications</span>
+                </div>
+                <div class="nav-item" data-view="add-new">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add New</span>
+                </div>
+                <a href="https://docs.google.com/spreadsheets/d/1H1IyXCr4RBcuZzJFRn6Z53-x0TzwpYup5y4reJgHdNM/edit?gid=0#gid=0" target="_blank" class="nav-item cloud-link">
+                    <i class="fas fa-cloud"></i>
+                    <span>Open Sheet</span>
+                </a>
+                <div class="nav-item logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="import-btn" class="secondary-btn small-btn">
+                    <i class="fas fa-file-import"></i> Import
+                </button>
+                <button id="export-btn" class="secondary-btn small-btn">
+                    <i class="fas fa-file-export"></i> Export
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search companies or roles...">
+                </div>
+                <div class="user-profile">
+                    <div class="stats-mini">
+                        <span id="countdown-days" class="badge secondary">67 Days Left</span>
+                        <span id="hustle-days" class="badge">Day 1</span>
+                    </div>
+                    <div class="avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view active">
+                <div class="view-header">
+                    <h1>Your Journey</h1>
+                    <p id="current-date">March 20, 2024</p>
+                </div>
+
+                <!-- Motivation Widget -->
+                <div class="motivation-widget glass-card">
+                    <div class="quote-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p id="quote-text">Loading inspiration...</p>
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="streak-container">
+                        <div class="streak-circle">
+                            <span id="streak-num">1</span>
+                            <small>Days</small>
+                        </div>
+                        <p>Keep the hustle alive!</p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon applied"><i class="fas fa-paper-plane"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stats-applied">0</span>
+                            <span class="stat-label">Applied</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon interview"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stats-interview">0</span>
+                            <span class="stat-label">Interviewing</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon decision"><i class="fas fa-award"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stats-decision">0</span>
+                            <span class="stat-label">Offers</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon rejected"><i class="fas fa-times-circle"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stats-rejected">0</span>
+                            <span class="stat-label">Rejections</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Grid -->
+                <div class="activity-section">
+                    <div class="section-header">
+                        <h2>Activity Heatmap</h2>
+                        <span class="subtitle">Applications in the last 6 months</span>
+                    </div>
+                    <div class="activity-grid-container glass-card">
+                        <div id="activity-grid" class="activity-grid"></div>
+                        <div class="grid-legend">
+                            <span>Less</span>
+                            <div class="legend-cells">
+                                <div class="cell level-0"></div>
+                                <div class="cell level-1"></div>
+                                <div class="cell level-2"></div>
+                                <div class="cell level-3"></div>
+                                <div class="cell level-4"></div>
+                            </div>
+                            <span>More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Table -->
+                <div class="recent-section">
+                    <div class="section-header">
+                        <h2>Recent Applications</h2>
+                        <button class="nav-btn" data-view="applications">View All</button>
+                    </div>
+                    <div class="table-container glass-card">
+                        <table id="recent-table">
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Role</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications List View -->
+            <section id="applications-view" class="view">
+                <div class="view-header">
+                    <h1>All Applications</h1>
+                    <div class="filters">
+                        <select id="status-filter">
+                            <option value="All">All Statuses</option>
+                            <option value="Applied">Applied</option>
+                            <option value="Online Assessment">Online Assessment</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Offer">Offer</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Ghosted">Ghosted</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container glass-card full-table">
+                    <table id="full-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Role</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                                <th>Job Link</th>
+                                <th>Resume</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add Application View -->
+            <section id="add-new-view" class="view">
+                <div class="view-header">
+                    <h1>Add New Application</h1>
+                </div>
+                <div class="form-container glass-card">
+                    <form id="app-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" placeholder="e.g. Google" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Job Title</label>
+                                <input type="text" id="role" placeholder="e.g. Software Engineer Intern" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date Applied</label>
+                                <input type="date" id="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select id="status">
+                                    <option value="Applied">Applied</option>
+                                    <option value="Online Assessment">Online Assessment</option>
+                                    <option value="Interviewing">Interviewing</option>
+                                    <option value="Offer">Offer</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Ghosted">Ghosted</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="link">Job Posting Link</label>
+                                <input type="url" id="link" placeholder="https://careers.google.com/...">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="resume">Resume Link (e.g., Google Drive or Portfolio)</label>
+                                <input type="url" id="resume" placeholder="https://drive.google.com/file/d/...">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="notes">Notes</label>
+                                <textarea id="notes" placeholder="Any details, contact info, or interview prep..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="primary-btn">Save Application</button>
+                            <button type="reset" class="secondary-btn">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="import-file" style="display: none" accept=".csv">
+
+    <!-- Notification system -->
+    <div id="notification-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
